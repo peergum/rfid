@@ -269,9 +269,9 @@ public:
 	/////////////////////////////////////////////////////////////////////////////////////
 	// Functions for setting up the Arduino
 	/////////////////////////////////////////////////////////////////////////////////////
-	MFRC522();
-	MFRC522(byte resetPowerDownPin);
-	MFRC522(byte chipSelectPin, byte resetPowerDownPin);
+	MFRC522(SPIClass *spi = &SPI);
+	MFRC522(byte resetPowerDownPin, SPIClass* spi = &SPI);
+	MFRC522(byte chipSelectPin, byte resetPowerDownPin, SPIClass *spi = &SPI);
 	
 	/////////////////////////////////////////////////////////////////////////////////////
 	// Basic interface functions for communicating with the MFRC522
@@ -366,6 +366,7 @@ protected:
 	byte _chipSelectPin;		// Arduino pin connected to MFRC522's SPI slave select input (Pin 24, NSS, active low)
 	byte _resetPowerDownPin;	// Arduino pin connected to MFRC522's reset and power down input (Pin 6, NRSTPD, active low)
 	StatusCode MIFARE_TwoStepHelper(byte command, byte blockAddr, int32_t data);
+	SPIClass *_spi;
 };
 
 #endif
